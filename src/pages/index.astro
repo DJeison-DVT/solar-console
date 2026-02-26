@@ -7,7 +7,7 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Solar Console — Invernadero Sostenible</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -381,7 +381,7 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
       }
 
       .step p {
-        font-size: 1.2rem; color: rgba(200,213,187,0.65); line-height: 1.7;
+        font-size: 0.82rem; color: rgba(200,213,187,0.65); line-height: 1.7;
       }
 
       /* ─── METRICS ─────────────────────────────── */
@@ -576,7 +576,7 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
       }
 
       .detail-text p {
-        font-size: 1.2rem; color: rgba(200,213,187,0.5); line-height: 1.7;
+        font-size: 0.82rem; color: rgba(200,213,187,0.5); line-height: 1.7;
       }
 
       /* ─── CTA ─────────────────────────────────── */
@@ -588,12 +588,39 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
 
       .cta-section h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1.5rem; }
 
-      .cta-section p {
+      .cta-section > p {
         color: var(--text-soft); font-size: 1.05rem; line-height: 1.8;
         max-width: 540px; margin: 0 auto 3rem;
       }
 
-      .cta-actions { display: flex; gap: 1rem; justify-content: center; }
+      .cta-actions { display: flex; gap: 1rem; justify-content: center; align-items: center; }
+
+      .btn-support {
+        display: inline-flex; align-items: center; gap: 0.65rem;
+        padding: 1rem 2.2rem;
+        background: var(--moss);
+        color: var(--cream);
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+        border: none; border-radius: var(--radius);
+        cursor: pointer; text-decoration: none;
+        transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 24px rgba(58,79,48,0.18);
+      }
+      .btn-support:hover {
+        background: var(--sage); transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(58,79,48,0.28);
+      }
+      .btn-support svg { flex-shrink: 0; }
+
+      .cta-note {
+        font-size: 0.75rem !important;
+        color: var(--text-soft) !important;
+        letter-spacing: 0.04em;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0 !important;
+        opacity: 0.7;
+      }
 
       /* ─── FOOTER ──────────────────────────────── */
       footer {
@@ -667,7 +694,7 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
         <li><a href="#tecnologia">Tecnología</a></li>
         <li><a href="#segmentos">Segmentos</a></li>
       </ul>
-      <a href="#contacto" class="nav-cta">Contacto</a>
+      <a href="#interesado" class="nav-cta">Me Interesa</a>
     </nav>
 
     <!-- HERO -->
@@ -869,7 +896,7 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
           <p class="section-tag">Impacto</p>
           <h2>Resultados <em>medibles</em> desde el primer ciclo</h2>
           <p>The Solar Console está diseñado para que el productor vea resultados tangibles a corto plazo. Cada variable del sistema está orientada a reducir costos y mejorar el rendimiento del cultivo.</p>
-          <a href="#contacto" class="btn-primary" style="display:inline-block;margin-top:1.5rem">Solicitar cotización</a>
+          <a href="#interesado" class="btn-primary" style="display:inline-block;margin-top:1.5rem">Solicitar cotización</a>
         </div>
         <div class="metrics-grid reveal">
           <div class="metric-box">
@@ -988,14 +1015,20 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
     </section>
 
     <!-- CTA -->
-    <section class="cta-section" id="contacto">
-      <p class="section-tag reveal" style="justify-content:center">Contáctanos</p>
-      <h2 class="reveal">¿Listo para reducir costos y <em>cosechar más</em>?</h2>
-      <p class="reveal">Somos TechFusion, un equipo del Tecnológico de Monterrey comprometido con el desarrollo sostenible del campo mexicano. Cuéntanos sobre tu invernadero.</p>
+    <section class="cta-section" id="interesado">
+      <p class="section-tag reveal" style="justify-content:center">¿Te interesa?</p>
+      <h2 class="reveal">¿Este sistema podría <em>transformar</em> tu invernadero?</h2>
+      <p class="reveal">Si crees que The Solar Console puede ayudarte a reducir costos, ahorrar agua y modernizar tu producción, muestra tu interés. Cada apoyo nos ayuda a llevar esta tecnología al campo mexicano.</p>
       <div class="cta-actions reveal">
-        <a href="mailto:techfusion@tec.mx" class="btn-primary">Escribir al equipo</a>
-        <a href="#solucion" class="btn-ghost">Ver el sistema</a>
+        <a href="/gracias" class="btn-support" id="support-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21C12 21 3 13.5 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-9 13-9 13z"/>
+          </svg>
+          Me interesa este proyecto
+        </a>
+        <a href="#solucion" class="btn-ghost">Conocer más</a>
       </div>
+      <p class="cta-note reveal">Al presionar el botón nos ayudas a medir el interés real en la solución.</p>
     </section>
 
     <!-- FOOTER -->
@@ -1005,7 +1038,7 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
         <a href="#problema">Problema</a>
         <a href="#solucion">Solución</a>
         <a href="#tecnologia">Tecnología</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#interesado">Me Interesa</a>
       </div>
       <span>TechFusion Equipo 2 · ITESM 2026</span>
     </footer>
@@ -1033,6 +1066,18 @@ import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2
         navLinks.forEach(a => {
           a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--moss)' : '';
         });
+      });
+
+      // Support button — increment counter via counterapi.dev v1 then navigate
+      document.getElementById('support-btn')?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try {
+          await fetch('https://api.counterapi.dev/v1/diego-villanueva-terrazass-team-3062/solar-console-support/up');
+        } catch (err) {
+          console.error('Counter error:', err);
+        } finally {
+          window.location.href = '/gracias';
+        }
       });
     </script>
 

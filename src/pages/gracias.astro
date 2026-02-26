@@ -1,0 +1,354 @@
+---
+// The Solar Console — Página de agradecimiento
+// TechFusion Equipo 2 | ITESM
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gracias por tu interés — The Solar Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --ink:       #1a1f18;
+        --moss:      #3a4f30;
+        --sage:      #6b8c5a;
+        --mist:      #c8d5bb;
+        --cream:     #f4f1eb;
+        --warm-off:  #ede9df;
+        --accent:    #8db87a;
+        --text-soft: #5a6350;
+        --radius:    2px;
+      }
+
+      html, body {
+        height: 100%;
+        font-family: 'DM Sans', sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.6;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      }
+
+      /* ─── NAV ─────────────────────────────────── */
+      nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.25rem 3rem;
+        background: rgba(244,241,235,0.82);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(107,140,90,0.15);
+      }
+
+      .nav-logo {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.1rem; letter-spacing: 0.01em;
+        color: var(--moss); text-decoration: none;
+        display: flex; align-items: center; gap: 0.6rem;
+      }
+      .nav-logo svg { width: 22px; height: 22px; }
+
+      /* ─── MAIN LAYOUT ─────────────────────────── */
+      main {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      /* Left — thank-you message */
+      .thanks-left {
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 10rem 5rem 6rem 6rem;
+      }
+
+      .thanks-tag {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--sage); margin-bottom: 2rem;
+      }
+      .thanks-tag::before {
+        content: ''; display: block;
+        width: 24px; height: 1px; background: var(--sage);
+      }
+
+      h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+        line-height: 1.08; letter-spacing: -0.01em;
+        color: var(--ink); margin-bottom: 1.5rem;
+        opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+      }
+      h1 em { font-style: italic; color: var(--sage); }
+
+      .thanks-body {
+        font-size: 1rem; line-height: 1.8;
+        color: var(--text-soft); max-width: 440px;
+        margin-bottom: 3rem;
+        opacity: 0; animation: fadeUp 0.8s 0.25s forwards;
+      }
+
+      .thanks-actions {
+        display: flex; gap: 1rem; flex-wrap: wrap;
+        opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+      }
+
+      .btn-primary {
+        padding: 0.85rem 2rem;
+        background: var(--moss); color: var(--cream);
+        font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+        border: none; border-radius: var(--radius);
+        cursor: pointer; text-decoration: none;
+        transition: background 0.2s, transform 0.15s;
+      }
+      .btn-primary:hover { background: var(--sage); transform: translateY(-2px); }
+
+      .btn-ghost {
+        padding: 0.85rem 2rem;
+        background: transparent; color: var(--moss);
+        font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+        border: 1px solid var(--mist); border-radius: var(--radius);
+        cursor: pointer; text-decoration: none;
+        transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      }
+      .btn-ghost:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+
+      /* ─── RIGHT PANEL — COUNTER ───────────────── */
+      .counter-panel {
+        background: var(--moss);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        padding: 6rem 4rem;
+        position: relative; overflow: hidden;
+      }
+
+      .counter-panel::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 30% 60%, rgba(141,184,122,0.2) 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 20%, rgba(181,164,110,0.12) 0%, transparent 50%);
+        pointer-events: none;
+      }
+
+      .counter-inner {
+        position: relative; z-index: 2;
+        text-align: center;
+        opacity: 0; animation: fadeIn 1s 0.5s forwards;
+      }
+
+      .counter-label {
+        font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: rgba(200,213,187,0.6); margin-bottom: 1.5rem;
+        display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      }
+      .counter-label::before, .counter-label::after {
+        content: ''; display: block; width: 20px; height: 1px;
+        background: rgba(200,213,187,0.3);
+      }
+
+      .counter-number {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(5rem, 10vw, 8rem);
+        color: var(--accent);
+        line-height: 1;
+        display: block;
+        margin-bottom: 0.5rem;
+        transition: all 0.4s ease;
+      }
+
+      .counter-number.loading {
+        opacity: 0.3;
+      }
+
+      .counter-sublabel {
+        font-size: 1rem; font-weight: 300;
+        color: rgba(200,213,187,0.7);
+        letter-spacing: 0.02em; line-height: 1.5;
+        max-width: 220px; margin: 0 auto;
+      }
+
+      /* Pulse ring around the number */
+      .counter-ring {
+        position: relative; display: inline-block;
+        margin-bottom: 1.5rem;
+      }
+
+      .counter-ring::before {
+        content: '';
+        position: absolute; inset: -24px;
+        border-radius: 50%;
+        border: 1px solid rgba(141,184,122,0.2);
+        animation: pulse-ring 2.5s ease-in-out infinite;
+      }
+      .counter-ring::after {
+        content: '';
+        position: absolute; inset: -48px;
+        border-radius: 50%;
+        border: 1px solid rgba(141,184,122,0.1);
+        animation: pulse-ring 2.5s ease-in-out 0.4s infinite;
+      }
+
+      @keyframes pulse-ring {
+        0%   { transform: scale(0.95); opacity: 0; }
+        50%  { opacity: 1; }
+        100% { transform: scale(1.05); opacity: 0; }
+      }
+
+      /* Divider */
+      .counter-divider {
+        width: 40px; height: 1px;
+        background: rgba(200,213,187,0.2);
+        margin: 2rem auto;
+      }
+
+      /* ODS badges */
+      .ods-row {
+        display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      .ods-badge {
+        font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+        padding: 0.3rem 0.75rem;
+        border: 1px solid rgba(200,213,187,0.2);
+        border-radius: 2px; color: rgba(200,213,187,0.5);
+      }
+
+      /* ─── ANIMATIONS ──────────────────────────── */
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+
+      /* ─── FOOTER ──────────────────────────────── */
+      footer {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        background: var(--ink);
+        color: rgba(200,213,187,0.4);
+        padding: 1rem 3rem;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.75rem; z-index: 10;
+      }
+
+      .footer-brand {
+        font-family: 'DM Serif Display', serif;
+        color: rgba(200,213,187,0.7); font-size: 0.9rem;
+      }
+
+      /* ─── RESPONSIVE ──────────────────────────── */
+      @media (max-width: 900px) {
+        nav { padding: 1rem 1.5rem; }
+        main { grid-template-columns: 1fr; }
+        .thanks-left { padding: 8rem 2rem 4rem; }
+        .counter-panel { padding: 4rem 2rem; min-height: 60vh; }
+        footer { position: static; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAV -->
+    <nav>
+      <a href="/" class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="4" stroke="#3a4f30" stroke-width="1.5"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="#3a4f30" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        The Solar Console
+      </a>
+    </nav>
+
+    <main>
+      <!-- LEFT: Thank you message -->
+      <div class="thanks-left">
+        <span class="thanks-tag">Tu apoyo cuenta</span>
+        <h1>Gracias por creer en el <em>campo mexicano</em></h1>
+        <p class="thanks-body">
+          Tu interés es una señal real de que esta tecnología tiene un lugar en los invernaderos de Michoacán. Estamos construyendo The Solar Console para productores como tú, que buscan modernizar sin perder la esencia de su trabajo.
+        </p>
+        <div class="thanks-actions">
+          <a href="/" class="btn-primary">Volver al inicio</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Live counter -->
+      <div class="counter-panel">
+        <div class="counter-inner">
+          <p class="counter-label">Personas interesadas</p>
+
+          <div class="counter-ring">
+            <span class="counter-number loading" id="count-display">—</span>
+          </div>
+
+          <p class="counter-sublabel">productores y personas que han mostrado su interés en The Solar Console</p>
+
+          <div class="counter-divider"></div>
+
+          <div class="ods-row">
+            <span class="ods-badge">ODS 2</span>
+            <span class="ods-badge">ODS 7</span>
+            <span class="ods-badge">ODS 8</span>
+            <span class="ods-badge">ODS 13</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-brand">The Solar Console</span>
+      <span>TechFusion Equipo 2 · ITESM 2026</span>
+    </footer>
+
+    <script>
+      async function loadCount() {
+        const el = document.getElementById('count-display');
+        try {
+          const res = await fetch('https://api.counterapi.dev/v1/diego-villanueva-terrazass-team-3062/solar-console-support/');
+          if (!res.ok) throw new Error('not found');
+          const data = await res.json();
+          const count = parseInt(data.count) || 0;
+          animateCount(el, count);
+        } catch (_) {
+          // Counter not created yet — show 1
+          animateCount(el, 1);
+        }
+      }
+
+      function animateCount(el, target) {
+        el.classList.remove('loading');
+        if (target === 0) { el.textContent = '0'; return; }
+
+        const duration = 1200;
+        const start = performance.now();
+        const startVal = Math.max(0, target - Math.min(target, 30));
+
+        function step(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(startVal + (target - startVal) * eased);
+          el.textContent = current.toLocaleString('es-MX');
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target.toLocaleString('es-MX');
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      // Load on page ready
+      loadCount();
+    </script>
+
+  </body>
+</html>
