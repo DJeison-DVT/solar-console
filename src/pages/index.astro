@@ -1,17 +1,1040 @@
 ---
-
+// The Solar Console — Landing Page
+// TechFusion Equipo 2 | ITESM
+// Icons: lucide-astro — install with: npm install lucide-astro
+import { Zap, Thermometer, Droplets, Leaf, SunMedium, Radio, Settings, BarChart2, Battery, PlugZap, Cpu, Wind, Smartphone, Sun } from 'lucide-astro';
 ---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Solar Console — Invernadero Sostenible</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+      :root {
+        --ink:       #1a1f18;
+        --moss:      #3a4f30;
+        --sage:      #6b8c5a;
+        --mist:      #c8d5bb;
+        --cream:     #f4f1eb;
+        --warm-off:  #ede9df;
+        --accent:    #8db87a;
+        --gold:      #b5a46e;
+        --text-soft: #5a6350;
+        --radius:    2px;
+      }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      }
+
+      /* ─── ICONS ───────────────────────────────── */
+      .icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .icon svg { display: block; fill: none; }
+
+      .problem-card-icon {
+        width: 36px; height: 36px; margin-bottom: 1rem;
+        background: var(--cream); border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .problem-card-icon .icon svg {
+        width: 16px; height: 16px;
+        stroke: var(--sage); stroke-width: 1.75;
+      }
+
+      .step-icon {
+        display: block; margin-bottom: 1rem;
+      }
+      .step-icon .icon svg {
+        width: 26px; height: 26px;
+        stroke: var(--accent); stroke-width: 1.5;
+      }
+
+      .diagram-icon {
+        width: 32px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .diagram-icon .icon svg {
+        width: 15px; height: 15px;
+        stroke: var(--accent); stroke-width: 1.5;
+      }
+
+      /* ─── NAV ─────────────────────────────────── */
+      nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 1.25rem 3rem;
+        background: rgba(244,241,235,0.82);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(107,140,90,0.15);
+      }
+
+      .nav-logo {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.01em;
+        color: var(--moss);
+        text-decoration: none;
+        display: flex; align-items: center; gap: 0.6rem;
+      }
+
+      .nav-logo svg { width: 22px; height: 22px; }
+
+      .nav-links {
+        display: flex; gap: 2.5rem; list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-soft);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover { color: var(--moss); }
+
+      .nav-cta {
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.55rem 1.4rem;
+        background: var(--moss);
+        color: var(--cream);
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, transform 0.15s;
+      }
+      .nav-cta:hover { background: var(--sage); transform: translateY(-1px); }
+
+      /* ─── HERO ────────────────────────────────── */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-left {
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 10rem 4rem 6rem 6rem;
+        position: relative; z-index: 2;
+      }
+
+      .hero-tag {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--sage); margin-bottom: 2.5rem;
+        opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+      }
+
+      .hero-tag::before {
+        content: ''; display: block;
+        width: 28px; height: 1px; background: var(--sage);
+      }
+
+      h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(3rem, 5.5vw, 5rem);
+        line-height: 1.05;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        margin-bottom: 1.8rem;
+        opacity: 0; animation: fadeUp 0.9s 0.35s forwards;
+      }
+
+      h1 em { font-style: italic; color: var(--sage); }
+
+      .hero-sub {
+        font-size: 1.05rem; line-height: 1.75;
+        color: var(--text-soft); max-width: 440px;
+        margin-bottom: 3rem;
+        opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+      }
+
+      .hero-actions {
+        display: flex; gap: 1rem; align-items: center;
+        opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
+      }
+
+      .btn-primary {
+        padding: 0.85rem 2rem;
+        background: var(--moss);
+        color: var(--cream);
+        font-size: 0.85rem;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        border: none; border-radius: var(--radius);
+        cursor: pointer; text-decoration: none;
+        transition: background 0.2s, transform 0.15s;
+      }
+      .btn-primary:hover { background: var(--sage); transform: translateY(-2px); }
+
+      .btn-ghost {
+        padding: 0.85rem 2rem;
+        background: transparent;
+        color: var(--moss);
+        font-size: 0.85rem;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        border: 1px solid var(--mist);
+        border-radius: var(--radius);
+        cursor: pointer; text-decoration: none;
+        transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      }
+      .btn-ghost:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+
+      .hero-right {
+        background: var(--moss);
+        position: relative; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      .hero-right::before {
+        content: '';
+        position: absolute; inset: 0;
+        background: radial-gradient(ellipse at 30% 70%, rgba(141,184,122,0.25) 0%, transparent 60%),
+                    radial-gradient(ellipse at 80% 20%, rgba(181,164,110,0.15) 0%, transparent 50%);
+      }
+
+      .hero-visual {
+        position: relative; z-index: 2;
+        opacity: 0; animation: fadeIn 1.2s 0.8s forwards;
+        width: 100%; height: 100%;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      .hero-visual img {
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center;
+        display: block;
+      }
+
+      .hero-stats {
+        position: absolute; bottom: 3rem; left: 3rem; right: 3rem;
+        display: grid; grid-template-columns: 1fr 1fr 1fr;
+        gap: 1px; background: rgba(255,255,255,0.08);
+        border-radius: var(--radius);
+        overflow: hidden; z-index: 3;
+        opacity: 0; animation: fadeUp 0.9s 1s forwards;
+      }
+
+      .stat-cell {
+        background: rgba(255,255,255,0.06);
+        padding: 1.25rem 1rem;
+        text-align: center;
+        backdrop-filter: blur(4px);
+      }
+
+      .stat-num {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.9rem; color: var(--accent);
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.7rem; letter-spacing: 0.08em;
+        text-transform: uppercase; color: rgba(200,213,187,0.7);
+        display: block; margin-top: 0.2rem;
+      }
+
+      /* ─── SECTION WRAPPER ─────────────────────── */
+      section { padding: 7rem 6rem; }
+
+      .section-tag {
+        font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--sage); margin-bottom: 1rem;
+        display: flex; align-items: center; gap: 0.6rem;
+      }
+      .section-tag::before { content:''; width:24px; height:1px; background:var(--sage); }
+
+      h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        line-height: 1.15; color: var(--ink);
+        letter-spacing: -0.01em; margin-bottom: 1.5rem;
+      }
+
+      h2 em { font-style: italic; color: var(--sage); }
+
+      /* ─── PROBLEM ─────────────────────────────── */
+      .problem {
+        background: var(--warm-off);
+        border-top: 1px solid var(--mist);
+        border-bottom: 1px solid var(--mist);
+      }
+
+      .problem-grid {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 5rem; align-items: center;
+      }
+
+      .problem-text p {
+        color: var(--text-soft); font-size: 1rem; line-height: 1.8;
+        margin-bottom: 1.5rem;
+      }
+
+      .problem-cards {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      }
+
+      .problem-card {
+        background: white;
+        border: 1px solid var(--mist);
+        border-radius: 4px;
+        padding: 1.5rem;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+      .problem-card:hover { border-color: var(--sage); transform: translateY(-3px); }
+
+      .problem-card h4 {
+        font-size: 0.85rem; font-weight: 500;
+        letter-spacing: 0.02em; color: var(--moss);
+        margin-bottom: 0.4rem;
+      }
+
+      .problem-card p {
+        font-size: 0.8rem; color: var(--text-soft); line-height: 1.6;
+      }
+
+      /* ─── SOLUTION ────────────────────────────── */
+      .solution-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 2rem; margin-top: 4rem;
+      }
+
+      .sol-card {
+        border-top: 2px solid var(--mist);
+        padding-top: 2rem;
+        transition: border-color 0.2s;
+      }
+      .sol-card:hover { border-color: var(--accent); }
+
+      .sol-num {
+        font-family: 'DM Serif Display', serif;
+        font-size: 3rem; color: var(--mist);
+        line-height: 1; margin-bottom: 1rem;
+      }
+
+      .sol-card h3 {
+        font-size: 1rem; font-weight: 500;
+        color: var(--moss); margin-bottom: 0.75rem;
+        letter-spacing: 0.01em;
+      }
+
+      .sol-card p {
+        font-size: 0.88rem; color: var(--text-soft); line-height: 1.75;
+      }
+
+      /* ─── HOW IT WORKS ────────────────────────── */
+      .how { background: var(--moss); color: var(--cream); }
+
+      .how .section-tag { color: var(--accent); }
+      .how .section-tag::before { background: var(--accent); }
+      .how h2 { color: var(--cream); }
+      .how h2 em { color: var(--accent); }
+
+      .how-steps {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 0; margin-top: 4rem;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 4px; overflow: hidden;
+      }
+
+      .step {
+        padding: 2.5rem 2rem;
+        border-right: 1px solid rgba(255,255,255,0.08);
+        position: relative;
+        transition: background 0.2s;
+      }
+      .step:last-child { border-right: none; }
+      .step:hover { background: rgba(255,255,255,0.05); }
+
+      .step-num {
+        font-family: 'DM Serif Display', serif;
+        font-size: 0.75rem; letter-spacing: 0.1em;
+        color: var(--accent); margin-bottom: 1.5rem;
+        display: block;
+      }
+
+      .step h4 {
+        font-size: 0.95rem; font-weight: 500;
+        color: var(--mist); margin-bottom: 0.6rem;
+      }
+
+      .step p {
+        font-size: 1.2rem; color: rgba(200,213,187,0.65); line-height: 1.7;
+      }
+
+      /* ─── METRICS ─────────────────────────────── */
+      .metrics { background: var(--warm-off); border-top: 1px solid var(--mist); }
+
+      .metrics-inner {
+        display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: center;
+      }
+
+      .metrics-text p {
+        color: var(--text-soft); line-height: 1.8; margin-bottom: 1.5rem;
+      }
+
+      .metrics-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+        background: var(--mist); border-radius: 4px; overflow: hidden;
+      }
+
+      .metric-box {
+        background: white; padding: 2.5rem 2rem;
+        transition: background 0.2s;
+      }
+      .metric-box:hover { background: var(--cream); }
+
+      .metric-val {
+        font-family: 'DM Serif Display', serif;
+        font-size: 3rem; color: var(--moss);
+        display: block; line-height: 1; margin-bottom: 0.5rem;
+      }
+
+      .metric-desc {
+        font-size: 0.8rem; color: var(--text-soft);
+        letter-spacing: 0.02em; line-height: 1.5;
+      }
+
+      /* ─── SEGMENTS ────────────────────────────── */
+      .segments-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem; margin-top: 4rem;
+      }
+
+      .seg-card {
+        border: 1px solid var(--mist);
+        border-radius: 4px; padding: 2.5rem 2rem;
+        position: relative; overflow: hidden;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+      .seg-card:hover { border-color: var(--sage); transform: translateY(-4px); }
+
+      .seg-card::after {
+        content: '';
+        position: absolute; bottom: 0; left: 0; right: 0;
+        height: 3px; background: var(--sage);
+        transform: scaleX(0); transform-origin: left;
+        transition: transform 0.3s;
+      }
+      .seg-card:hover::after { transform: scaleX(1); }
+
+      .seg-tag {
+        font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--sage); margin-bottom: 1.2rem; display: block;
+      }
+
+      .seg-card h3 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 1.3rem; color: var(--ink);
+        margin-bottom: 1rem; line-height: 1.3;
+      }
+
+      .seg-card p {
+        font-size: 0.85rem; color: var(--text-soft); line-height: 1.75;
+      }
+
+      /* ─── TECH SPECS ──────────────────────────── */
+      .tech { background: var(--ink); }
+
+      .tech .section-tag { color: var(--accent); }
+      .tech .section-tag::before { background: var(--accent); }
+      .tech h2 { color: var(--cream); }
+      .tech h2 em { color: var(--accent); }
+
+      .tech-cols {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: 5rem; margin-top: 4rem;
+      }
+
+      .spec-group { margin-bottom: 2.5rem; }
+
+      .spec-group-title {
+        font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--accent); margin-bottom: 1rem; display: block;
+      }
+
+      .spec-item {
+        display: flex; justify-content: space-between; align-items: baseline;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        font-size: 0.85rem;
+      }
+      .spec-item:last-child { border-bottom: none; }
+
+      .spec-name { color: rgba(200,213,187,0.6); }
+      .spec-val { color: var(--cream); font-weight: 500; }
+
+      .tech-diagram {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 4px; padding: 2rem;
+        display: flex; flex-direction: column; gap: 1px;
+      }
+
+      .diagram-row {
+        display: flex; align-items: center; gap: 1rem;
+        padding: 1rem 1.2rem;
+        background: rgba(255,255,255,0.04);
+        border-radius: 2px;
+        transition: background 0.2s;
+      }
+      .diagram-row:hover { background: rgba(141,184,122,0.08); }
+
+      .diagram-label {
+        font-size: 0.82rem; color: rgba(200,213,187,0.8); flex: 1;
+      }
+
+      .diagram-badge {
+        font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase;
+        padding: 0.2rem 0.6rem;
+        background: rgba(141,184,122,0.15);
+        color: var(--accent); border-radius: 2px;
+      }
+
+      /* ─── PRODUCT SHOWCASE ────────────────────── */
+      .showcase { background: var(--ink); padding: 7rem 6rem; }
+
+      .showcase .section-tag { color: var(--accent); }
+      .showcase .section-tag::before { background: var(--accent); }
+      .showcase h2 { color: var(--cream); margin-bottom: 4rem; }
+      .showcase h2 em { color: var(--accent); }
+
+      .showcase-grid {
+        display: grid; grid-template-columns: 1.2fr 1fr;
+        gap: 5rem; align-items: center;
+      }
+
+      .showcase-image-wrap {
+        position: relative; border-radius: 4px; overflow: hidden;
+      }
+
+      .showcase-image-wrap::before {
+        content: '';
+        position: absolute; inset: 0; z-index: 1;
+        background: linear-gradient(135deg, rgba(141,184,122,0.08) 0%, transparent 60%);
+        pointer-events: none;
+      }
+
+      .showcase-image-wrap img {
+        width: 100%; display: block; border-radius: 4px;
+        filter: brightness(0.95) contrast(1.05);
+        transition: transform 0.6s ease, filter 0.4s ease;
+      }
+      .showcase-image-wrap:hover img {
+        transform: scale(1.02); filter: brightness(1) contrast(1.05);
+      }
+
+      .showcase-caption {
+        position: absolute; bottom: 1.2rem; left: 1.2rem; z-index: 2;
+        font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+        color: rgba(200,213,187,0.6);
+        background: rgba(26,31,24,0.75);
+        backdrop-filter: blur(6px);
+        padding: 0.4rem 0.8rem; border-radius: 2px;
+        border: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .showcase-details { display: flex; flex-direction: column; gap: 2rem; }
+
+      .showcase-detail-item {
+        display: flex; gap: 1.25rem; align-items: flex-start;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .showcase-detail-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+      .detail-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--accent); flex-shrink: 0; margin-top: 0.45rem;
+      }
+
+      .detail-text h4 {
+        font-size: 0.88rem; font-weight: 500;
+        color: var(--mist); margin-bottom: 0.35rem;
+      }
+
+      .detail-text p {
+        font-size: 1.2rem; color: rgba(200,213,187,0.5); line-height: 1.7;
+      }
+
+      /* ─── CTA ─────────────────────────────────── */
+      .cta-section {
+        background: var(--cream);
+        text-align: center; padding: 8rem 6rem;
+        border-top: 1px solid var(--mist);
+      }
+
+      .cta-section h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 1.5rem; }
+
+      .cta-section p {
+        color: var(--text-soft); font-size: 1.05rem; line-height: 1.8;
+        max-width: 540px; margin: 0 auto 3rem;
+      }
+
+      .cta-actions { display: flex; gap: 1rem; justify-content: center; }
+
+      /* ─── FOOTER ──────────────────────────────── */
+      footer {
+        background: var(--ink);
+        color: rgba(200,213,187,0.5);
+        padding: 3rem 6rem;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.8rem;
+      }
+
+      .footer-brand {
+        font-family: 'DM Serif Display', serif;
+        color: var(--cream); font-size: 1rem;
+      }
+
+      .footer-links { display: flex; gap: 2rem; }
+      .footer-links a { color: rgba(200,213,187,0.5); text-decoration: none; transition: color 0.2s; }
+      .footer-links a:hover { color: var(--accent); }
+
+      /* ─── ANIMATIONS ──────────────────────────── */
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+
+      .reveal {
+        opacity: 0; transform: translateY(32px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+
+      /* ─── RESPONSIVE ──────────────────────────── */
+      @media (max-width: 900px) {
+        nav { padding: 1rem 1.5rem; }
+        .nav-links { display: none; }
+        section { padding: 5rem 2rem; }
+        .hero { grid-template-columns: 1fr; }
+        .hero-right { height: 50vh; }
+        .hero-left { padding: 8rem 2rem 4rem; }
+        .showcase { padding: 5rem 2rem; }
+        .showcase-grid { grid-template-columns: 1fr; gap: 3rem; }
+        .problem-grid, .metrics-inner, .tech-cols { grid-template-columns: 1fr; gap: 3rem; }
+        .solution-grid, .segments-grid { grid-template-columns: 1fr 1fr; }
+        .how-steps { grid-template-columns: 1fr 1fr; }
+        .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .step:nth-child(2n) { border-right: none; }
+        footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+        .cta-section { padding: 6rem 2rem; }
+        .cta-actions { flex-direction: column; align-items: center; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAV -->
+    <nav>
+      <a href="#" class="nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="4" stroke="#3a4f30" stroke-width="1.5"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" stroke="#3a4f30" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        The Solar Console
+      </a>
+      <ul class="nav-links">
+        <li><a href="#problema">Problema</a></li>
+        <li><a href="#solucion">Solución</a></li>
+        <li><a href="#tecnologia">Tecnología</a></li>
+        <li><a href="#segmentos">Segmentos</a></li>
+      </ul>
+      <a href="#contacto" class="nav-cta">Contacto</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" style="padding:0">
+      <div class="hero-left">
+        <span class="hero-tag">Invernadero Sostenible · Michoacán</span>
+        <h1>Energía solar para el <em>campo</em> que nos alimenta</h1>
+        <p class="hero-sub">
+          Sistema de control automatizado que integra paneles fotovoltaicos,
+          monitoreo en tiempo real y automatización inteligente para invernaderos
+          rurales de pequeña y mediana escala.
+        </p>
+        <div class="hero-actions">
+          <a href="#solucion" class="btn-primary">Conocer el sistema</a>
+          <a href="#segmentos" class="btn-ghost">Para quién es</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-visual">
+          <img src="/render.png" alt="The Solar Console — Render del sistema de control instalado en invernadero" />
+        </div>
+        <div class="hero-stats">
+          <div class="stat-cell">
+            <span class="stat-num">ODS</span>
+            <span class="stat-label">2 · 7 · 8 · 13</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">1500</span>
+            <span class="stat-label">m² cubiertos</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Energía solar</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCT SHOWCASE -->
+    <section class="showcase" id="render">
+      <p class="section-tag reveal">El sistema</p>
+      <h2 class="reveal">Diseñado para el invernadero, <em>instalado en minutos</em></h2>
+      <div class="showcase-grid">
+        <div class="showcase-image-wrap reveal">
+          <img
+            src="/render.png"
+            alt="Render del mainframe de The Solar Console — gabinete de control instalado en sitio"
+          />
+          <span class="showcase-caption">Render · Mainframe de control — The Solar Console</span>
+        </div>
+        <div class="showcase-details reveal">
+          <div class="showcase-detail-item">
+            <div class="detail-dot"></div>
+            <div class="detail-text">
+              <h4>Gabinete compacto y resistente</h4>
+              <p>Estructura en polímero reforzado con diseño tipo panal. Resistente a la intemperie, polvo y humedad para uso en ambiente de invernadero.</p>
+            </div>
+          </div>
+          <div class="showcase-detail-item">
+            <div class="detail-dot"></div>
+            <div class="detail-text">
+              <h4>Pantalla de estado integrada</h4>
+              <p>Visualización clara de temperatura, humedad, CO₂ y estado del sistema fotovoltaico. Legible sin formación técnica.</p>
+            </div>
+          </div>
+          <div class="showcase-detail-item">
+            <div class="detail-dot"></div>
+            <div class="detail-text">
+              <h4>Conectores modulares de campo</h4>
+              <p>Cableado limpio con conectores tipo estrella para sensores y actuadores. Mantenimiento mínimo, sin herramientas especiales.</p>
+            </div>
+          </div>
+          <div class="showcase-detail-item">
+            <div class="detail-dot"></div>
+            <div class="detail-text">
+              <h4>Ventilación inteligente integrada</h4>
+              <p>El sistema gestiona la disipación térmica del propio gabinete, asegurando vida útil prolongada de todos los componentes electrónicos.</p>
+            </div>
+          </div>
+          <div class="showcase-detail-item">
+            <div class="detail-dot"></div>
+            <div class="detail-text">
+              <h4>Listo para instalación en sitio</h4>
+              <p>Montaje en pared con soporte incluido. Instalación por técnico local en menos de una jornada, sin obras ni adaptaciones mayores.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section class="problem" id="problema">
+      <div class="problem-grid">
+        <div class="problem-text reveal">
+          <p class="section-tag">El problema</p>
+          <h2>Dependencia energética que limita el <em>campo mexicano</em></h2>
+          <p>Los invernaderos rurales de Michoacán enfrentan costos crecientes de electricidad y combustibles fósiles. Sin automatización ni monitoreo, las variaciones de temperatura, humedad y CO₂ reducen los rendimientos y elevan el impacto ambiental.</p>
+          <p>Los pequeños productores pagan más por producir menos, en un modelo que los hace dependientes de insumos externos y volátiles.</p>
+        </div>
+        <div class="problem-cards reveal">
+          <div class="problem-card">
+            <div class="problem-card-icon"><span class="icon"><Zap /></span></div>
+            <h4>Altos costos energéticos</h4>
+            <p>Dependencia de CFE y combustibles fósiles encarece la operación del invernadero.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-card-icon"><span class="icon"><Thermometer /></span></div>
+            <h4>Sin control ambiental</h4>
+            <p>Variaciones bruscas en temperatura y humedad afectan directamente las cosechas.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-card-icon"><span class="icon"><Droplets /></span></div>
+            <h4>Sobreconsumo de agua</h4>
+            <p>Sin monitoreo consistente, el riego es ineficiente y desperdicia un recurso escaso.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-card-icon"><span class="icon"><Leaf /></span></div>
+            <h4>Impacto ambiental</h4>
+            <p>El uso de aerosoles y la huella de carbono presionan los límites planetarios.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUCIÓN -->
+    <section id="solucion">
+      <p class="section-tag reveal">La solución</p>
+      <h2 class="reveal">Un sistema <em>integral</em> diseñado para el productor real</h2>
+      <div class="solution-grid">
+        <div class="sol-card reveal">
+          <div class="sol-num">01</div>
+          <h3>Generación solar fotovoltaica</h3>
+          <p>Paneles solares con regulador, inversor y banco de baterías que garantizan operación continua, incluso en días nublados o durante la noche.</p>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">02</div>
+          <h3>Control automatizado</h3>
+          <p>Microcontrolador con sensores de temperatura, humedad y CO₂ que activa ventiladores, extractores y sistema de riego de forma autónoma.</p>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">03</div>
+          <h3>Monitoreo en tiempo real</h3>
+          <p>Dashboard o reportes por WhatsApp que muestran variables del invernadero y el ahorro energético acumulado, en lenguaje claro y directo.</p>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">04</div>
+          <h3>Interfaz simple e intuitiva</h3>
+          <p>Diseñada para personas sin formación técnica. Botones físicos accesibles y pantalla de fácil lectura para operar sin capacitación avanzada.</p>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">05</div>
+          <h3>Sistema compacto y ligero</h3>
+          <p>Estructura en polímero reforzado con diseño tipo panal que reduce el peso sin comprometer la resistencia a la intemperie.</p>
+        </div>
+        <div class="sol-card reveal">
+          <div class="sol-num">06</div>
+          <h3>Acompañamiento postventa</h3>
+          <p>Reportes mensuales de ahorro, soporte técnico por WhatsApp y seguimiento cercano para asegurar el retorno de inversión prometido.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="how" id="como-funciona">
+      <p class="section-tag reveal">Cómo funciona</p>
+      <h2 class="reveal">Del sol al cultivo, <em>sin interrupciones</em></h2>
+      <div class="how-steps">
+        <div class="step reveal">
+          <span class="step-num">Paso 01</span>
+          <span class="step-icon"><span class="icon"><SunMedium /></span></span>
+          <h4>Captación solar</h4>
+          <p>Los paneles fotovoltaicos captan la radiación solar y la convierten en corriente eléctrica, almacenando el excedente en baterías.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-num">Paso 02</span>
+          <span class="step-icon"><span class="icon"><Radio /></span></span>
+          <h4>Sensores en campo</h4>
+          <p>Sensores distribuidos miden temperatura, humedad relativa y CO₂ dentro del invernadero en tiempo continuo.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-num">Paso 03</span>
+          <span class="step-icon"><span class="icon"><Settings /></span></span>
+          <h4>Decisión automática</h4>
+          <p>El microcontrolador compara las lecturas con los rangos óptimos del cultivo y activa ventiladores, riego o extractores.</p>
+        </div>
+        <div class="step reveal">
+          <span class="step-num">Paso 04</span>
+          <span class="step-icon"><span class="icon"><BarChart2 /></span></span>
+          <h4>Reporte al productor</h4>
+          <p>El agricultor recibe el estado de su invernadero y el ahorro generado, sin necesidad de estar físicamente presente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÉTRICAS / IMPACTO -->
+    <section class="metrics">
+      <div class="metrics-inner">
+        <div class="metrics-text reveal">
+          <p class="section-tag">Impacto</p>
+          <h2>Resultados <em>medibles</em> desde el primer ciclo</h2>
+          <p>The Solar Console está diseñado para que el productor vea resultados tangibles a corto plazo. Cada variable del sistema está orientada a reducir costos y mejorar el rendimiento del cultivo.</p>
+          <a href="#contacto" class="btn-primary" style="display:inline-block;margin-top:1.5rem">Solicitar cotización</a>
+        </div>
+        <div class="metrics-grid reveal">
+          <div class="metric-box">
+            <span class="metric-val">↓ 60%</span>
+            <span class="metric-desc">Reducción estimada en costo de energía eléctrica convencional</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-val">24/7</span>
+            <span class="metric-desc">Monitoreo continuo de temperatura, humedad y CO₂</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-val">↓ CO₂</span>
+            <span class="metric-desc">Eliminación del uso de aerosoles y combustibles fósiles en operación</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-val">ODS 7</span>
+            <span class="metric-desc">Energía asequible y no contaminante · Acción por el Clima</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEGMENTOS -->
+    <section id="segmentos">
+      <p class="section-tag reveal">Para quién es</p>
+      <h2 class="reveal">Pensado para el <em>productor real</em> de Michoacán</h2>
+      <div class="segments-grid">
+        <div class="seg-card reveal">
+          <span class="seg-tag">Segmento prioritario</span>
+          <h3>Pequeño productor comercial</h3>
+          <p>Agricultores con 1 a 3 hectáreas, capital limitado y enfoque en rentabilidad inmediata. Buscan reducir costos de energía e insumos sin complicaciones técnicas.</p>
+        </div>
+        <div class="seg-card reveal">
+          <span class="seg-tag">Segmento en crecimiento</span>
+          <h3>Productor en transición sostenible</h3>
+          <p>Agricultores que buscan modernizar sus prácticas, reducir el uso de pesticidas y posicionarse como productores premium con impacto ambiental positivo.</p>
+        </div>
+        <div class="seg-card reveal">
+          <span class="seg-tag">Segmento líder</span>
+          <h3>Referente en asociaciones locales</h3>
+          <p>Agricultores con reconocimiento comunitario capaces de impulsar la adopción colectiva de nuevas tecnologías en su región.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPECIFICACIONES TÉCNICAS -->
+    <section class="tech" id="tecnologia">
+      <p class="section-tag reveal">Especificaciones</p>
+      <h2 class="reveal">Tecnología <em>probada</em>, componentes accesibles</h2>
+      <div class="tech-cols">
+        <div class="reveal">
+          <div class="spec-group">
+            <span class="spec-group-title">Sistema fotovoltaico</span>
+            <div class="spec-item"><span class="spec-name">Paneles solares</span><span class="spec-val">Módulos policristalinos</span></div>
+            <div class="spec-item"><span class="spec-name">Regulador de carga</span><span class="spec-val">MPPT / PWM</span></div>
+            <div class="spec-item"><span class="spec-name">Inversor</span><span class="spec-val">CC → CA 12/24V</span></div>
+            <div class="spec-item"><span class="spec-name">Baterías</span><span class="spec-val">Banco de larga duración</span></div>
+          </div>
+          <div class="spec-group">
+            <span class="spec-group-title">Sensores y control</span>
+            <div class="spec-item"><span class="spec-name">Temperatura / Humedad</span><span class="spec-val">DHT22 / SHT</span></div>
+            <div class="spec-item"><span class="spec-name">CO₂</span><span class="spec-val">Sensor infrarrojo</span></div>
+            <div class="spec-item"><span class="spec-name">Microcontrolador</span><span class="spec-val">MCU embebido</span></div>
+            <div class="spec-item"><span class="spec-name">Conectividad</span><span class="spec-val">Wi-Fi / SMS local</span></div>
+          </div>
+          <div class="spec-group">
+            <span class="spec-group-title">Cultivo de referencia</span>
+            <div class="spec-item"><span class="spec-name">Temperatura óptima</span><span class="spec-val">23–25°C diurna</span></div>
+            <div class="spec-item"><span class="spec-name">Humedad relativa</span><span class="spec-val">60–70%</span></div>
+            <div class="spec-item"><span class="spec-name">pH de suelo</span><span class="spec-val">6.0 – 6.5</span></div>
+          </div>
+        </div>
+        <div class="tech-diagram reveal">
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Sun /></span></span>
+            <span class="diagram-label">Panel fotovoltaico</span>
+            <span class="diagram-badge">Entrada</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Battery /></span></span>
+            <span class="diagram-label">Regulador + Baterías</span>
+            <span class="diagram-badge">Almacenamiento</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><PlugZap /></span></span>
+            <span class="diagram-label">Inversor de corriente</span>
+            <span class="diagram-badge">Conversión</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Cpu /></span></span>
+            <span class="diagram-label">Microcontrolador</span>
+            <span class="diagram-badge">Control</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Radio /></span></span>
+            <span class="diagram-label">Red de sensores</span>
+            <span class="diagram-badge">Medición</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Wind /></span></span>
+            <span class="diagram-label">Ventiladores / Extractores</span>
+            <span class="diagram-badge">Actuadores</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Droplets /></span></span>
+            <span class="diagram-label">Sistema de riego automatizado</span>
+            <span class="diagram-badge">Actuadores</span>
+          </div>
+          <div class="diagram-row">
+            <span class="diagram-icon"><span class="icon"><Smartphone /></span></span>
+            <span class="diagram-label">Dashboard / WhatsApp</span>
+            <span class="diagram-badge">Interfaz</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contacto">
+      <p class="section-tag reveal" style="justify-content:center">Contáctanos</p>
+      <h2 class="reveal">¿Listo para reducir costos y <em>cosechar más</em>?</h2>
+      <p class="reveal">Somos TechFusion, un equipo del Tecnológico de Monterrey comprometido con el desarrollo sostenible del campo mexicano. Cuéntanos sobre tu invernadero.</p>
+      <div class="cta-actions reveal">
+        <a href="mailto:techfusion@tec.mx" class="btn-primary">Escribir al equipo</a>
+        <a href="#solucion" class="btn-ghost">Ver el sistema</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <span class="footer-brand">The Solar Console</span>
+      <div class="footer-links">
+        <a href="#problema">Problema</a>
+        <a href="#solucion">Solución</a>
+        <a href="#tecnologia">Tecnología</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <span>TechFusion Equipo 2 · ITESM 2026</span>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 80);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Smooth active nav link highlight
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a');
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => {
+          if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--moss)' : '';
+        });
+      });
+    </script>
+
+  </body>
 </html>
